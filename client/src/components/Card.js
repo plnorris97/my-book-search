@@ -1,22 +1,20 @@
 import React from 'react';
-import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle, Button } from 'reactstrap';
-
-
-
-const Result = () => {
-  return (
-    <div>
-      <Card>
-        <CardImg top width="100%" src="https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180" alt="Card image cap" />
-        <CardBody>
-          <CardTitle>Card title</CardTitle>
-          <CardSubtitle>Card subtitle</CardSubtitle>
-          <CardText>Some quick example text to build on the card title and make up the bulk of the card's content.</CardText>
-          <Button>Button</Button>
+import { CardImg, CardText, CardBody, CardTitle, CardSubtitle, Button } from 'reactstrap';
+  
+function Card(props){
+  return(
+    <Card>
+      {props.books.map(book =>(
+        <CardBody key={book.id}>
+          <CardImg src={book.bookImg} alt="nothing"></CardImg>
+          <CardTitle>{book.title}</CardTitle>
+          <CardSubtitle>{book.authors[0]}</CardSubtitle>
+          <CardText>{book.description}</CardText>
+          <Button id={book.link} className="saveBook" onClick={(e)=>props.saveBook(e)}>Save</Button>
+          <Button id={book.id} className="viewBook" onClick={URL}>View</Button>
         </CardBody>
-      </Card>
-    </div>
-  );
-};
-
-export default Result;
+      ))}
+    </Card>
+  )
+}  
+export default Card;

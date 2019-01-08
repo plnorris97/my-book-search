@@ -10,6 +10,7 @@ import {
     Container
 } from 'reactstrap';
 
+
 class AppNavbar extends Component {
     state = {
         isOpen: false
@@ -34,6 +35,9 @@ class AppNavbar extends Component {
                                     </NavLink>
                                     <NavLink href="/books/Library">
                                         Library
+                                    </NavLink>
+                                    <NavLink href="https://github.com/plnorris97/my-book-search" target="_blank">
+                                        GitHub
                                     </NavLink>
                                 </NavItem>
                             </Nav>

@@ -2,11 +2,9 @@ import React, { Component } from "react";
 // import DeleteBtn from "../components/DeleteBtn";
 import Jumbotron from "../components/Jumbotron";
 import API from "../utils/API";
-import { Link } from "react-router-dom";
-import { List, ListItem } from "../components/List";
 import { Col, Row, Container } from "../components/Grid";
 import { Input, FormBtn } from "../components/Form";
-// import Card from '../components/Card'
+import Card from '../components/Card'
 
 class Search extends Component {
   state = {
@@ -17,8 +15,8 @@ class Search extends Component {
   // Get all books
   lookUpBooks() {
     API.getBooks()
-    .then(res => console.log(res))
-    .catch(err => console.log(err))
+      .then(res => console.log(res))
+      .catch(err => console.log(err))
   }
 
   // search field function
@@ -29,24 +27,61 @@ class Search extends Component {
     });
   }
 
-  // Save results function
-
-  
-  handleInputChange = event => {
-    const { name, value } = event.target;
+  saveResults = input => {
+    const working = input.map(element =>{
+      let result = {
+        title: element.volumeInfo.title,
+        author: element.volumeInfo.author,
+        bookImg: element.volumeInfo.bookImg,
+        link: element.volumeInfo.link,
+        description: element.volumeInfo.description,
+        id: element.id
+      };
+      return result;
+    })
     this.setState({
-      [name]: value
+      results: working
     });
-  };
+    console.log(this.state.results);
+  }
 
-  handleFormSubmit = event => {
+
+  searchAPI = event => {
     event.preventDefault();
-    if (this.state.search) {
-      API.getBooks()
-        .then(res => this.loadBooks())
-        .catch(err => console.log(err));
+    const title = this.state.search.replace(/ /g, "+");
+    let url = "https://www.googleapis.com/books/v1/volumes?q=" + title
+    console.log(url);
+    API.googleSearch(url)
+      .then(res => {
+        this.saveResults(res.data.items);
+      })
+  }
+
+  // Save results function
+  saveBook = event => {
+    event.preventDefault();
+    console.log(event.target.id)
+    const book = event.target.id;
+    let result;
+    this.state.results.forEach(element => {
+      if (element.id === book) {
+        result = element
+        return result;
+      } 
+    });
+
+    const input = {
+      title: result.title,
+      author: result.authors[0],
+      description: result.description,
+      image: result.bookImg,
+      link: result.link
     }
-  };
+
+    API.saveBook({input})
+      .then(res => this.lookUpBooks())
+      .catch(err => console.log(err));
+  }
 
   render() {
     return (
@@ -63,7 +98,7 @@ class Search extends Component {
             <form>
               <Input
                 value={this.state.search}
-                onChange={this.handleInputChange}
+                onChange={this.searchInput}
                 name="search"
                 placeholder="Search Book"
               />
@@ -76,24 +111,15 @@ class Search extends Component {
           </Col>
         </Row>
         <Row>
-          <Col>
           {this.state.books.length ? (
-            <List>
-              {this.state.books.map(book => (
-                <ListItem key={book._id}>
-                  <Link to={"/books/" + book._id}>
-                    <strong>
-                      {book.title} by {book.author}
-                    </strong>
-                  </Link>
-                  {/* <DeleteBtn onClick={() => this.deleteBook(book._id)} /> */}
-                </ListItem>
-                ))}
-              </List>
-            ) : (
-              <h3>No Results to Display</h3>
-            )}
-          </Col>
+            <Col className="results" sm="12" md={{size: 6, offset:3}}>
+            <Card books={this.state.results} saveBook={this.saveBook}/>
+            </Col>
+          ):(
+            <Col className="results" sm="12" md={{size: 6, offset: 3}}>
+            <h3>Enter a book title to see some results.</h3>
+            </Col>
+          )}
         </Row>
       </Container>
     );
