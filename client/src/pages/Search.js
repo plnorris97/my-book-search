@@ -6,33 +6,32 @@ import { Link } from "react-router-dom";
 import { List, ListItem } from "../components/List";
 import { Col, Row, Container } from "../components/Grid";
 import { Input, FormBtn } from "../components/Form";
-import Card from '../components/Card'
+// import Card from '../components/Card'
 
 class Search extends Component {
   state = {
-    books: [
-      { id: 0, title: "", author: "", description: "", cardImg: "", link: "" }
-    ],
-  };
-
-  componentDidMount() {
-    this.loadBooks();
+    books: [],
+    search: ""
   }
 
-  loadBooks = () => {
+  // Get all books
+  lookUpBooks() {
     API.getBooks()
-      .then(res =>
-        this.setState({ books: res.data, title: "", author: "", description: "" })
-      )
-      .catch(err => console.log(err));
-  };
+    .then(res => console.log(res))
+    .catch(err => console.log(err))
+  }
 
-  deleteBook = id => {
-    API.deleteBook(id)
-      .then(res => this.loadBooks())
-      .catch(err => console.log(err));
-  };
+  // search field function
+  searchInput = event => {
+    let search = event.target.value;
+    this.setState({
+      search: search
+    });
+  }
 
+  // Save results function
+
+  
   handleInputChange = event => {
     const { name, value } = event.target;
     this.setState({
