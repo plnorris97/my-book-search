@@ -3,17 +3,16 @@ import React, { Component } from "react";
 import Jumbotron from "../components/Jumbotron";
 import API from "../utils/API";
 import { Link } from "react-router-dom";
+import { List, ListItem } from "../components/List";
 import { Col, Row, Container } from "../components/Grid";
-// import { List, ListItem } from "../components/List";
 import { Input, FormBtn } from "../components/Form";
 import Card from '../components/Card'
 
 class Search extends Component {
   state = {
-    books: [],
-    title: "",
-    author: "",
-    description: ""
+    books: [
+      { id: 0, title: "", author: "", description: "", cardImg: "", link: "" }
+    ],
   };
 
   componentDidMount() {
@@ -43,12 +42,8 @@ class Search extends Component {
 
   handleFormSubmit = event => {
     event.preventDefault();
-    if (this.state.title && this.state.author) {
-      API.saveBook({
-        title: this.state.title,
-        author: this.state.author,
-        synopsis: this.state.synopsis
-      })
+    if (this.state.search) {
+      API.getBooks()
         .then(res => this.loadBooks())
         .catch(err => console.log(err));
     }
@@ -58,19 +53,22 @@ class Search extends Component {
     return (
       <Container fluid>
         <Row>
-          <Col size="md-12">
+          <Col size="lg-12">
             <Jumbotron>
               <h1>My Book Search</h1>
             </Jumbotron>
+          </Col>
+        </Row>
+        <Row>
+          <Col size="lg-12">
             <form>
               <Input
-                value={this.state.title}
+                value={this.state.search}
                 onChange={this.handleInputChange}
-                name="title"
-                placeholder="Title (required)"
+                name="search"
+                placeholder="Search Book"
               />
               <FormBtn
-                disabled={!(this.state.author && this.state.title)}
                 onClick={this.handleFormSubmit}
               >
                 Search
@@ -80,10 +78,22 @@ class Search extends Component {
         </Row>
         <Row>
           <Col>
-            <Card>
-              {/* Results go here. */}
-            </Card>
-          
+          {this.state.books.length ? (
+            <List>
+              {this.state.books.map(book => (
+                <ListItem key={book._id}>
+                  <Link to={"/books/" + book._id}>
+                    <strong>
+                      {book.title} by {book.author}
+                    </strong>
+                  </Link>
+                  {/* <DeleteBtn onClick={() => this.deleteBook(book._id)} /> */}
+                </ListItem>
+                ))}
+              </List>
+            ) : (
+              <h3>No Results to Display</h3>
+            )}
           </Col>
         </Row>
       </Container>
