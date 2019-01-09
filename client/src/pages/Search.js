@@ -103,7 +103,7 @@ class Search extends Component {
                 placeholder="Search Book"
               />
               <FormBtn
-                onClick={this.handleFormSubmit}
+                onClick={this.searchAPI}
               >
                 Search
               </FormBtn>
