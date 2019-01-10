@@ -17,7 +17,7 @@ module.exports = {
       title:req.body.input.title,
       author:req.body.input.author,
       description: req.body.input.description,
-      bookImg: req.body.input.image,
+      bookImg: req.body.input.bookImage,
       link: req.body.input.link
     });
     console.log(newBook);

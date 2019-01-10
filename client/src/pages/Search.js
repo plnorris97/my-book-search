@@ -4,12 +4,13 @@ import Jumbotron from "../components/Jumbotron";
 import API from "../utils/API";
 import { Col, Row, Container } from "../components/Grid";
 import { Input, FormBtn } from "../components/Form";
-import Card from '../components/Card'
+import BookWrapper from "../components/BookWrapper"
 
 class Search extends Component {
   state = {
     books: [],
-    search: ""
+    search: "",
+    results: []
   }
 
   // Get all books
@@ -111,16 +112,18 @@ class Search extends Component {
           </Col>
         </Row>
         <Row>
-          {this.state.books.length ? (
-            <Col className="results" sm="12" md={{size: 6, offset:3}}>
-            <Card books={this.state.results} saveBook={this.saveBook}/>
-            </Col>
+          {this.state.results.length ? (
+            this.state.results.map(book => (
+              <BookWrapper className="card-result"
+                book = {book}
+              />
+            ))
           ):(
-            <Col className="results" sm="12" md={{size: 6, offset: 3}}>
-            <h3>Enter a book title to see some results.</h3>
+            <Col className="results" sm="12" md={{size:6, offset:3}}>
+            <h3>Enter a book title to retrieve some results.</h3>
             </Col>
           )}
-        </Row>
+        </Row> 
       </Container>
     );
   }
