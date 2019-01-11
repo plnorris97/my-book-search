@@ -15,10 +15,10 @@ module.exports = {
     console.log(req.body)
     const newBook = new Book({
       title:req.body.input.title,
-      author:req.body.input.author,
+      authors:req.body.input.authors,
       description: req.body.input.description,
-      bookImg: req.body.input.bookImage,
-      link: req.body.input.link
+      bookImg: req.body.input.bookImg,
+      link: req.body.input.selfLink
     });
     console.log(newBook);
     newBook.save(err=>{

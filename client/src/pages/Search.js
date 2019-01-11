@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 // import DeleteBtn from "../components/DeleteBtn";
-import Jumbotron from "../components/Jumbotron";
+import Jumbotron from "../components/Jumbotron/Jumbotron";
 import API from "../utils/API";
-import { Col, Row, Container } from "../components/Grid";
-import { Input, FormBtn } from "../components/Form";
-import BookWrapper from "../components/BookWrapper"
+import { Col, Row, Container } from "../components/Grid/Grid";
+import { Input, FormBtn } from "../components/Form/Form";
+import BookWrapper from "../components/BookWrapper/BookWrapper"
 
 class Search extends Component {
   state = {
@@ -32,9 +32,9 @@ class Search extends Component {
     const working = input.map(element =>{
       let result = {
         title: element.volumeInfo.title,
-        author: element.volumeInfo.author,
-        bookImg: element.volumeInfo.bookImg,
-        link: element.volumeInfo.link,
+        authors: element.volumeInfo.authors,
+        bookImg: element.volumeInfo.imageLinks.smallThumbnail,
+        link: element.volumeInfo.selfLink,
         description: element.volumeInfo.description,
         id: element.id
       };
@@ -73,10 +73,10 @@ class Search extends Component {
 
     const input = {
       title: result.title,
-      author: result.authors[0],
+      author: result.authors,
       description: result.description,
       image: result.bookImg,
-      link: result.link
+      link: result.selfLink
     }
 
     API.saveBook({input})
@@ -120,7 +120,7 @@ class Search extends Component {
             ))
           ):(
             <Col className="results" sm="12" md={{size:6, offset:3}}>
-            <h3>Enter a book title to retrieve some results.</h3>
+            <h3>Enter a book title to get some results.</h3>
             </Col>
           )}
         </Row> 

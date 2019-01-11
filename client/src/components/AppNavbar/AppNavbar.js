@@ -9,7 +9,7 @@ import {
     NavLink,
     Container
 } from 'reactstrap';
-
+import "../AppNavbar/AppNavbar.css";
 
 class AppNavbar extends Component {
     state = {
