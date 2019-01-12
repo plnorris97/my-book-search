@@ -34,26 +34,45 @@ class Search extends Component {
         title: element.volumeInfo.title,
         authors: element.volumeInfo.authors,
         bookImg: element.volumeInfo.imageLinks.smallThumbnail,
-        link: element.volumeInfo.selfLink,
+        link: element.selfLink,
         description: element.volumeInfo.description,
         id: element.id
       };
+      console.log(result.bookImg);
+      this.loadImage(result.bookImg);
       return result;
     })
+    
     this.setState({
-      results: working
+      results: working 
     });
     console.log(this.state.results);
   }
 
-
+  loadImage() {
+    let image = this.state.bookImg
+    // load result
+    // check to see if the image exists
+    if (image !== undefined) {
+      console.log("is working!");
+    } else 
+      image = "https://www.google.com/url?sa=i&source=images&cd=&ved=2ahUKEwjNsuXAyejfAhUBJt8KHXCuDQAQjRx6BAgBEAU&url=https%3A%2F%2Fwww.guidedogs.org%2F&psig=AOvVaw2z0mFs_0GWrh5RsGj4CDVu&ust=1547393866010025"
+      this.setState({
+        bookImg: image
+      });
+    // if the image exists load it
+    // if it doesn't exist load a default image
+  }
+   
   searchAPI = event => {
     event.preventDefault();
     const title = this.state.search.replace(/ /g, "+");
-    let url = "https://www.googleapis.com/books/v1/volumes?q=" + title
+    let url = "https://www.googleapis.com/books/v1/volumes?q=" + title + "&maxResults=5"
     console.log(url);
     API.googleSearch(url)
       .then(res => {
+      console.log(res);
+        // console.log(res.data.items.element.volumeInfo);
         this.saveResults(res.data.items);
       })
   }
@@ -76,7 +95,7 @@ class Search extends Component {
       author: result.authors,
       description: result.description,
       image: result.bookImg,
-      link: result.selfLink
+      link: result.link
     }
 
     API.saveBook({input})

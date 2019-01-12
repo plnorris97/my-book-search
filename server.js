@@ -6,6 +6,13 @@ const Books = require('./routes/api/books')
 
 const app = express();
 
+const port = process.env.PORT || 5000;
+
+// Serve up static assets (usually on heroku)
+if (process.env.NODE_ENV === "production") {
+    app.use(express.static("client/build"));
+  }
+
 //Bodyparser middleware
 app.use(bodyParser.json());
 
@@ -21,7 +28,6 @@ mongoose
 //Use routes
 app.use('/api/books', Books)
 
-const port = process.env.PORT || 5000;
 
 app.listen(port, () => console.log(`Server started on port ${5000}`));
 

@@ -11,7 +11,7 @@ function BookWrapper(props){
         <CardTitle>{props.book.title}</CardTitle>
         <CardSubtitle>by {props.book.authors}</CardSubtitle>
         <CardText>{props.book.description}</CardText>
-        <Button id={props.book.selfLink} className="save-btn" onClick={() => this.saveBook(props.book.id)}>Save</Button>
+        <Button id={props.book.link} className="save-btn" onClick={() => this.saveBook(props.book.id)}>Save</Button>
         {/* <Button id={props.book.id} className="view-btn" onClick={url}>View</Button> */}
       </CardBody>
     </Card>
