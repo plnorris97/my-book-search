@@ -5,6 +5,9 @@ export default {
   googleSearch: (URL) => {
     return axios.get(URL);
   },
+  getBook: function(id) {
+    return axios.get("/api/books" + id)
+  },
   // Gets the book with the given id
   getBooks: function() {
     return axios.get("/api/books/");

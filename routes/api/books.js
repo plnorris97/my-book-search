@@ -30,7 +30,7 @@ router
   .route("/:id")
   .get(booksController.findById)
   .put(booksController.update)
-  .delete(booksController.delete);
+  .delete(booksController.remove);
 
 
 // @route   DELETE api/books/:id

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle, Button } from 'reactstrap';
 import "../BookWrapper/BookWrapper.css";
-// import { url } from 'inspector';
   
 function BookWrapper(props){
   return(
@@ -11,8 +10,8 @@ function BookWrapper(props){
         <CardTitle>{props.book.title}</CardTitle>
         <CardSubtitle>by {props.book.authors}</CardSubtitle>
         <CardText>{props.book.description}</CardText>
-        <Button id={props.book.link} className="save-btn" onClick={() => this.saveBook(props.book.id)}>Save</Button>
-        {/* <Button id={props.book.id} className="view-btn" onClick={url}>View</Button> */}
+        <Button id={props.book.link} className="save-btn" onClick={() => this.saveBook(props.book.link)}>Save</Button>
+        <Button id={props.book.id} className="view-btn">View</Button>
       </CardBody>
     </Card>
   )

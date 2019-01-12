@@ -13,6 +13,10 @@ class Search extends Component {
     results: []
   }
 
+  componentDidMount() {
+    this.lookUpBooks();
+  }
+
   // Get all books
   lookUpBooks() {
     API.getBooks()
@@ -20,6 +24,24 @@ class Search extends Component {
       .catch(err => console.log(err))
   }
 
+  searchAPI = event => {
+    event.preventDefault();
+    const title = this.state.search.replace(/ /g, "+");
+    let url = "https://www.googleapis.com/books/v1/volumes?q=" + title + "&maxResults=5"
+    console.log(url);
+    API.googleSearch(url)
+      .then(res => {
+      console.log(res);
+        // console.log(res.data.items.element.volumeInfo);
+        this.saveResults(res.data.items);
+      })
+  }
+  
+  deleteBook = id => {
+    API.deleteBook(id)
+      .then(res => this.lookUpBooks())
+      .catch(err => console.log(err));
+  };
   // search field function
   searchInput = event => {
     let search = event.target.value;
@@ -63,19 +85,7 @@ class Search extends Component {
     // if the image exists load it
     // if it doesn't exist load a default image
   }
-   
-  searchAPI = event => {
-    event.preventDefault();
-    const title = this.state.search.replace(/ /g, "+");
-    let url = "https://www.googleapis.com/books/v1/volumes?q=" + title + "&maxResults=5"
-    console.log(url);
-    API.googleSearch(url)
-      .then(res => {
-      console.log(res);
-        // console.log(res.data.items.element.volumeInfo);
-        this.saveResults(res.data.items);
-      })
-  }
+  
 
   // Save results function
   saveBook = event => {
@@ -93,9 +103,9 @@ class Search extends Component {
     const input = {
       title: result.title,
       author: result.authors,
-      description: result.description,
-      image: result.bookImg,
-      link: result.link
+      // description: result.description,
+      // image: result.bookImg,
+      // link: result.link
     }
 
     API.saveBook({input})
