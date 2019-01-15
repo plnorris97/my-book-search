@@ -16,9 +16,9 @@ if (process.env.NODE_ENV === "production") {
 
 app.use(routes)
 
-// app.get("*", function(req, res) {
-//     res.sendFile(path.join(__dirname, "./client/public/index.html"));
-// });
+app.get("/", function(req, res) {
+    res.render("index");
+});
 
 mongoose
     .connect(process.env.MONGODB_URI || "mongodb://localhost/mybooksearch")
