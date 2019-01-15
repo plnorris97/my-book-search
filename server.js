@@ -2,19 +2,20 @@ const express = require('express');
 const mongoose = require('mongoose');
 // const bodyParser = require('body-parser');
 const routes = require("./routes");
-const CONNECTION_URI = process.env.MONGODB_URI || "mongodb://localhost/mybooksearch"
+const PORT = process.env.PORT || 3001;
+
 
 // const Books = require('./routes/api/books')
 
 const app = express();
 
-const PORT = process.env.PORT || 3001;
+
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 if (process.env.NODE_ENV === "production") {
-    app.use(express.static("client/public"));
+    app.use(express.static("client/build"));
 }
 
 app.use(routes)
@@ -24,9 +25,7 @@ app.use(routes)
 // });
 
 mongoose
-    .connect(CONNECTION_URI, {
-        useMongoClient: true
-    }) 
+    .connect(process.env.MONGODB_URI || "mongodb://localhost/mybooksearch")
     .then(() => console.log('MongoDB Connected...'))
     .catch(err => console.log(err));
 
