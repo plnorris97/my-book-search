@@ -22,7 +22,7 @@ app.use(routes)
 //     res.sendFile(path.join(__dirname, "./client/public/index.html"));
 // });
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://plnorris97:December192015!@ds157544.mlab.com:57544/heroku_sch5rw4b")
+mongoose.connect(process.env.MONGODB_URI || "mongodb://heroku_sch5rw4b:qmlls67eh20r7pin99l1d7u1rt@ds157544.mlab.com:57544/heroku_sch5rw4b")
     .then(() => console.log('MongoDB Connected...'))
     .catch(err => console.log(err));
 
