@@ -3,13 +3,9 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const routes = require("./routes");
 const PORT = process.env.PORT || 3001;
-
-
-// const Books = require('./routes/api/books')
-
 const app = express();
 
-
+// const Books = require('./routes/api/books')
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -20,9 +16,9 @@ if (process.env.NODE_ENV === "production") {
 
 app.use(routes)
 
-app.get("*", function(req, res) {
-    res.sendFile(path.join(__dirname, "./client/public/index.html"));
-});
+// app.get("*", function(req, res) {
+//     res.sendFile(path.join(__dirname, "./client/public/index.html"));
+// });
 
 mongoose
     .connect(process.env.MONGODB_URI || "mongodb://localhost/mybooksearch")
