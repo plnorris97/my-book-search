@@ -2,10 +2,8 @@ import React, { Component } from "react";
 // import DeleteBtn from "../components/DeleteBtn";
 import Jumbotron from "../components/Jumbotron/Jumbotron";
 import API from "../utils/API";
-import { Link } from "react-router-dom";
-import { List, ListItem } from "../components/List";
 import { Col, Row, Container } from "../components/Grid/Grid";
-// import Card from '../components/Card'
+import BookWrapper from "../components/BookWrapper/BookWrapper"
 
 class Library extends Component {
   state = {
@@ -42,29 +40,17 @@ class Library extends Component {
                     </Col>
                 </Row>
                 <Row>
-                    <Col size="lg-12">
-                        {/* results from Library search / load books goes here. */}
-                    </Col>
-                </Row>
-                <Row>
-                    <Col>
-                        {this.state.books.length ? (
-                            <List>
-                                {this.state.books.map(book => (
-                                    <ListItem key={book._id}>
-                                        <Link to={"/books/" + book._id}>
-                                            <strong>
-                                                {book.title} by {book.author}
-                                            </strong>
-                                        </Link>
-                                        {/* <DeleteBtn onClick={() => this.deleteBook(book._id)} /> */}
-                                    </ListItem>
-                                ))}
-                            </List>
-                            ) : (
-                            <h3>You don't have any books in your Library!</h3>
+                    {this.state.results.length ? (
+                        this.state.results.map(book => (
+                            <BookWrapper className="card-result"
+                                book={book} deleteBook = {this.deleteBook}
+                            />
+                        ))
+                    ) : (
+                            <Col className="results" sm="12" md={{ size: 6, offset: 3 }}>
+                                <h3>Enter a book title to get some results.</h3>
+                            </Col>
                         )}
-                    </Col>
                 </Row>
             </Container>
         );

@@ -1,15 +1,14 @@
 
-.form-control {
-    /* margin-bottom: 10px; */
+/* .form-control {
+    margin-bottom: 10px;
     position: absolute;
     bottom: 200px;
     left: 350px;
-    width: 100px;
-    right: 40px;
+    width: 40%;
     margin: 20px;
     padding: 16px;
     background-color: white;
-}
+} */
 
 input[type=text] {
     padding: 15px;
@@ -20,7 +19,7 @@ input[type=text] {
   }
 
 .btn {
-    position: absolute;
+    /* position: absolute; */
     bottom: 200px;
     left: 900px;
     width: 100px;

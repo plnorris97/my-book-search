@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle, Button } from 'reactstrap';
 import "../BookWrapper/BookWrapper.css";
+import "../../pages/Search"
   
 function BookWrapper(props){
   return(
