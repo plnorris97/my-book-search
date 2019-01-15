@@ -19,7 +19,7 @@
   "bugs": {
     "url": "https://github.com/plnorris97/my-book-search/issues"
   },
-  // "homepage": "https://github.com/plnorris97/my-book-search#readme",
+  "homepage": "https://github.com/plnorris97/my-book-search#readme",
   "dependencies": {
     "bootstrap": "^4.2.1",
     "concurrently": "^4.1.0",
