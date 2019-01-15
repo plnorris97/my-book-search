@@ -5,7 +5,8 @@ const routes = require("./routes");
 const PORT = process.env.PORT || 3001;
 const app = express();
 
-// const Books = require('./routes/api/books')
+//Bodyparser middleware
+app.use(bodyParser.json());
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -16,17 +17,14 @@ if (process.env.NODE_ENV === "production") {
 
 app.use(routes)
 
-app.get("/", function(req, res) {
-    res.render("index");
-});
+// app.get("/", function(req, res) {
+//     res.render("index");
+// });
 
 mongoose
     .connect(process.env.MONGODB_URI || "mongodb://localhost/mybooksearch")
     .then(() => console.log('MongoDB Connected...'))
     .catch(err => console.log(err));
-
-//Bodyparser middleware
-app.use(bodyParser.json());
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
 
