@@ -111,7 +111,7 @@ class Search extends Component {
     API.saveBook({input})
       .then(res => this.lookUpBooks())
       .catch(err => console.log(err));
-  }
+    }
 
   render() {
     return (
