@@ -1,12 +1,6 @@
-const path = require("path");
 const router = require("express").Router();
-const apiRoutes =require("./api");
+const bookRoutes =require("./books");
 
-router.use("/api", apiRoutes);
-
-// What is this router.use for?
-router.use((req, res) =>{
-  res.sendFile(path.join(__dirname, "../client/build/index.html"))
-})
+router.use("/books", bookRoutes);
 
 module.exports = router;
