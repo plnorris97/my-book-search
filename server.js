@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const routes = require("./routes");
 const PORT = process.env.PORT || 3001;
 const app = express();
+const keys = require('./config/keys');
 
 //Bodyparser middleware
 app.use(bodyParser.json());
@@ -14,7 +15,8 @@ app.use(express.json());
 app.use(routes)
 
 mongoose
-    .connect(process.env.MONGODB_URI || "mongodb://localhost/mybooksearch")
+    .connect(keys.MONGODB_URI)
+    // .connect(process.env.MONGODB_URI || "mongodb://localhost/mybooksearch")
     .then(() => console.log('MongoDB Connected...'))
     .catch(err => console.log(err));
 
