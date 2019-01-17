@@ -1,29 +1,24 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
+const express = require("express");
+const mongoose = require("mongoose");
 const routes = require("./routes");
 const PORT = process.env.PORT || 3001;
 const app = express();
 
-//Bodyparser middleware
-app.use(bodyParser.json());
-
+// Define middleware here
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
-app.use(routes)
-
-mongoose
-    .connect(process.env.MONGODB_URI || "mongodb://localhost/mybooksearch")
-    .then(() => console.log('MongoDB Connected...'))
-    .catch(err => console.log(err));
-
+// Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === "production") {
-    app.use(express.static("client/build"));
-    app.get("*", (req, res) => {
-        res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-    });
+  app.use(express.static("client/build"));
 }
-    
-app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
 
+// Define API routes here
+app.use(routes);
+
+// Send every other request to the React app
+// Define any API routes before this runs
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/googlebooks");
+
+app.listen(PORT, () => {
+  console.log(`🌎 ==> API server now on port ${PORT}!`);
+});
