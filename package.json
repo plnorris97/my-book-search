@@ -7,7 +7,7 @@
   },
   "main": "server.js",
   "scripts": {
-    "start": "if-env NODE_ENV=production && npm run start:server || npm run dev",
+    "start": "if-env NODE_ENV=production && npm run start:server || npm run client",
     "start:server": "node server.js",
     "server": "nodemon server.js",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
